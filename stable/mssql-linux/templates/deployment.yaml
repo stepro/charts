@@ -45,8 +45,10 @@ spec:
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            {{- if eq (.Values.acceptEula.value | upper) "Y" }}
             - name: ACCEPT_EULA
-              value: "{{ .Values.acceptEula.value | upper }}"
+              value: "Y"
+            {{- end }}
             - name: MSSQL_PID
               value: "{{ .Values.edition.value }}"
             - name: SA_PASSWORD
